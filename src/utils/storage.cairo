@@ -12,15 +12,23 @@ use starknet::{
 
 impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
   fn read(address_domain: u32, base: StorageBaseAddress) -> SyscallResult<Span<felt252>> {
+    Felt252SpanStorageAccess::read_at_offset_internal(address_domain, base, 0)
+  }
+
+  fn write(address_domain: u32, base: StorageBaseAddress, mut value: Span<felt252>) -> SyscallResult<()> {
+    Felt252SpanStorageAccess::write_at_offset_internal(address_domain, base, 0, value)
+  }
+
+  fn read_at_offset_internal(address_domain: u32, base: StorageBaseAddress, offset: u8) -> SyscallResult<Span<felt252>> {
     let mut arr = ArrayTrait::new();
 
     // Read span len
-    let len: u8 = storage_read_syscall(:address_domain, address: storage_address_from_base_and_offset(base, 0_u8))?
+    let len: u8 = storage_read_syscall(:address_domain, address: storage_address_from_base_and_offset(base, offset))?
       .try_into()
       .expect('Storage - Span too large');
 
     // Load span content
-    let mut i: u8 = 1;
+    let mut i: u8 = offset;
     loop {
       if (i > len) {
         break ();
@@ -39,13 +47,18 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
     Result::Ok(arr.span())
   }
 
-  fn write(address_domain: u32, base: StorageBaseAddress, mut value: Span<felt252>) -> SyscallResult<()> {
+  fn write_at_offset_internal(
+    address_domain: u32,
+    base: StorageBaseAddress,
+    offset: u8,
+    mut value: Span<felt252>
+  ) -> SyscallResult<()> {
     // Assert span can fit in storage obj
-    // 1 slots for the len; 255 slots for the span content
-    let len: u8 = Into::<u32, felt252>::into(value.len()).try_into().expect('Storage - Span too large');
+    // 1 slots for the len; 255 slots for the span content, minus the offset
+    let len: u8 = Into::<u32, felt252>::into(value.len() + offset.into()).try_into().expect('Storage - Span too large');
 
     // Write span content
-    let mut i: u8 = 1;
+    let mut i: u8 = offset;
     loop {
       match value.pop_front() {
         Option::Some(element) => {
@@ -64,5 +77,10 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
 
     // Store span len
     StorageAccess::<felt252>::write(:address_domain, :base, value: len.into())
+  }
+
+  fn size_internal(value: Span<felt252>) -> u8 {
+    let size: u8 = Into::<u32, felt252>::into(value.len() + 1).try_into().expect('Storage - Span too large');
+    size
   }
 }

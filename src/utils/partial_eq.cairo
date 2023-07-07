@@ -2,8 +2,8 @@ use array::{ ArrayTrait, SpanTrait };
 use traits::PartialEq;
 
 impl SpanPartialEq<T, impl TPartialEq: PartialEq<T>, impl TCopy: Copy<T>, impl TDrop: Drop<T>> of PartialEq<Span<T>> {
-  fn eq(lhs: Span<T>, rhs: Span<T>) -> bool {
-    if (lhs.len() != rhs.len()) {
+  fn eq(lhs: @Span<T>, rhs: @Span<T>) -> bool {
+    if ((*lhs).len() != (*rhs).len()) {
       // diff len
 
       false
@@ -13,11 +13,11 @@ impl SpanPartialEq<T, impl TPartialEq: PartialEq<T>, impl TCopy: Copy<T>, impl T
       let mut eq = true;
 
       let mut i: usize = 0;
-      let len = lhs.len();
+      let len = (*lhs).len();
       loop {
         if (i >= len) {
           break ();
-        } else if (*lhs.at(i) != *rhs.at(i)) {
+        } else if (*(*lhs).at(i) != *(*rhs).at(i)) {
           eq = false;
           break ();
         }
@@ -30,7 +30,7 @@ impl SpanPartialEq<T, impl TPartialEq: PartialEq<T>, impl TCopy: Copy<T>, impl T
   }
 
   #[inline(always)]
-  fn ne(lhs: Span<T>, rhs: Span<T>) -> bool {
-    !(lhs == rhs)
+  fn ne(lhs: @Span<T>, rhs: @Span<T>) -> bool {
+    !(*lhs == *rhs)
   }
 }
