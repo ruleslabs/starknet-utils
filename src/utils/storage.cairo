@@ -28,7 +28,7 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
       .expect('Storage - Span too large');
 
     // Load span content
-    let mut i: u8 = offset;
+    let mut i: u8 = offset + 1;
     loop {
       if (i > len) {
         break ();
@@ -58,7 +58,7 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
     let len: u8 = Into::<u32, felt252>::into(value.len() + offset.into()).try_into().expect('Storage - Span too large');
 
     // Write span content
-    let mut i: u8 = offset;
+    let mut i: u8 = offset + 1;
     loop {
       match value.pop_front() {
         Option::Some(element) => {
@@ -80,7 +80,6 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
   }
 
   fn size_internal(value: Span<felt252>) -> u8 {
-    let size: u8 = Into::<u32, felt252>::into(value.len() + 1).try_into().expect('Storage - Span too large');
-    size
+    Into::<u32, felt252>::into(value.len() + 1).try_into().expect('Storage - Span too large')
   }
 }
