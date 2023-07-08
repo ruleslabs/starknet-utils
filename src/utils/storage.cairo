@@ -19,7 +19,11 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
     Felt252SpanStorageAccess::write_at_offset_internal(address_domain, base, 0, value)
   }
 
-  fn read_at_offset_internal(address_domain: u32, base: StorageBaseAddress, offset: u8) -> SyscallResult<Span<felt252>> {
+  fn read_at_offset_internal(
+    address_domain: u32,
+    base: StorageBaseAddress,
+    offset: u8
+  ) -> SyscallResult<Span<felt252>> {
     let mut arr = ArrayTrait::new();
 
     // Read span len
