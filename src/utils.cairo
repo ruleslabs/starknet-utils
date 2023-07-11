@@ -3,3 +3,4 @@ mod zeroable;
 mod partial_eq;
 mod into;
 mod array;
+mod hash;
