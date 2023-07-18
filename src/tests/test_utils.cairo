@@ -2,8 +2,10 @@ use array::{ ArrayTrait, SpanTrait };
 
 // locals
 use rules_utils::utils::partial_eq::SpanPartialEq;
+use rules_utils::utils::contract_address::ContractAddressTraitExt;
 use super::mocks::contract::Contract;
 use super::mocks::contract::Contract::ContractTrait;
+use super::utils;
 
 fn ARR() -> Array<felt252> {
   let mut uri = ArrayTrait::new();
@@ -17,6 +19,18 @@ fn ARR() -> Array<felt252> {
 
 fn SPAN() -> Span<felt252> {
   ARR().span()
+}
+
+fn RANDO() -> starknet::ContractAddress {
+  starknet::contract_address_const::<'rando'>()
+}
+
+//
+// Setup
+//
+
+fn deploy_contract() -> starknet::ContractAddress {
+  utils::deploy(Contract::TEST_CLASS_HASH, ArrayTrait::new())
 }
 
 //
@@ -68,4 +82,18 @@ fn test_felt252_span_storage() {
   contract.set_arr(span);
 
   assert(contract.get_arr() == span, 'arr should be SPAN()');
+}
+
+//
+// Contract address
+//
+
+#[test]
+#[available_gas(20000000)]
+fn test_contract_address_is_deployed() {
+  let random_address = RANDO();
+  let contract_address = deploy_contract();
+
+  assert(!random_address.is_deployed(), 'random is not deployed');
+  assert(contract_address.is_deployed(), 'contract is deployed');
 }
