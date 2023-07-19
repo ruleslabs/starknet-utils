@@ -17,11 +17,11 @@ struct DualCaseERC165 {
 }
 
 trait DualCaseERC165Trait {
-  fn supports_interface(self: @DualCaseERC165, interface_id: felt252) -> bool;
+  fn supports_interface(self: @DualCaseERC165, interface_id: u32) -> bool;
 }
 
 impl DualCaseERC165Impl of DualCaseERC165Trait {
-  fn supports_interface(self: @DualCaseERC165, interface_id: felt252) -> bool {
+  fn supports_interface(self: @DualCaseERC165, interface_id: u32) -> bool {
     let mut args = ArrayTrait::new();
     args.append_serde(interface_id);
 
