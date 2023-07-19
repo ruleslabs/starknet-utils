@@ -1,3 +1,7 @@
 # Starknet Messages
 
-Small library to help computing typed data hash, check their singature, and consume them.
+Small library with some utils
+
+### Credits
+
+s/o Openzeppelin some of the code here comes from them
