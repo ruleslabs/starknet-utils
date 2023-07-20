@@ -12,16 +12,16 @@ mod selectors {
 }
 
 #[derive(Copy, Drop)]
-struct DualCaseERC165 {
+struct DualCaseSRC5 {
   contract_address: ContractAddress
 }
 
-trait DualCaseERC165Trait {
-  fn supports_interface(self: @DualCaseERC165, interface_id: u32) -> bool;
+trait DualCaseSRC5Trait {
+  fn supports_interface(self: @DualCaseSRC5, interface_id: felt252) -> bool;
 }
 
-impl DualCaseERC165Impl of DualCaseERC165Trait {
-  fn supports_interface(self: @DualCaseERC165, interface_id: u32) -> bool {
+impl DualCaseSRC5Impl of DualCaseSRC5Trait {
+  fn supports_interface(self: @DualCaseSRC5, interface_id: felt252) -> bool {
     let mut args = ArrayTrait::new();
     args.append_serde(interface_id);
 
