@@ -1,3 +1,4 @@
+use core::array::ArrayTrait;
 use array::SpanTrait;
 use option::OptionTrait;
 use starknet::{ Felt252TryIntoContractAddress, SyscallResultTrait };
@@ -47,5 +48,31 @@ impl UnwrapAndCastU256 of UnwrapAndCast<u256> {
       low: (*unwrapped.at(0)).try_into().unwrap(),
       high: (*unwrapped.at(1)).try_into().unwrap(),
     }
+  }
+}
+
+impl UnwrapAndCastSpanU256 of UnwrapAndCast<Span<u256>> {
+  fn unwrap_and_cast(self: starknet::SyscallResult<Span<felt252>>) -> Span<u256> {
+    let unwrapped = self.unwrap_syscall();
+
+    let mut ret = ArrayTrait::<u256>::new();
+    let mut i: usize = 0;
+
+    loop {
+      if (i >= unwrapped.len()) {
+        break;
+      }
+
+      ret.append(
+        u256 {
+          low: (*unwrapped.at(i)).try_into().unwrap(),
+          high: (*unwrapped.at(i + 1)).try_into().unwrap(),
+        }
+      );
+
+      i += 2;
+    };
+
+    ret.span()
   }
 }
