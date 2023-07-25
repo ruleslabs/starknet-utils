@@ -49,7 +49,7 @@ fn setup_src5_panic() -> (DualCaseSRC5, DualCaseSRC5) {
 //
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_dual_supports_interface() {
   let dispatcher = setup_snake();
 
@@ -57,7 +57,7 @@ fn test_dual_supports_interface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 #[should_panic(expected: ('ENTRYPOINT_NOT_FOUND', ))]
 fn test_dual_no_supports_interface() {
   let dispatcher = setup_non_src5();
@@ -66,7 +66,7 @@ fn test_dual_no_supports_interface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 #[should_panic(expected: ('Some error', 'ENTRYPOINT_FAILED', ))]
 fn test_dual_supports_interface_exists_and_panics() {
   let (dispatcher, _) = setup_src5_panic();
@@ -79,7 +79,7 @@ fn test_dual_supports_interface_exists_and_panics() {
 //
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_dual_supportsInterface() {
   let dispatcher = setup_camel();
 
@@ -87,7 +87,7 @@ fn test_dual_supportsInterface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 #[should_panic(expected: ('Some error', 'ENTRYPOINT_FAILED', ))]
 fn test_dual_supportsInterface_exists_and_panics() {
   let (_, dispatcher) = setup_src5_panic();

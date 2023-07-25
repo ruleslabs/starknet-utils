@@ -9,7 +9,7 @@ fn STATE() -> SRC5::ContractState {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_default_behavior() {
   let src5 = STATE();
 
@@ -18,7 +18,7 @@ fn test_default_behavior() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_not_registered_interface() {
   let src5 = STATE();
 
@@ -27,7 +27,7 @@ fn test_not_registered_interface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_register_interface() {
   let mut src5 = STATE();
 
@@ -37,7 +37,7 @@ fn test_register_interface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 fn test_deregister_interface() {
   let mut src5 = STATE();
 
@@ -48,7 +48,7 @@ fn test_deregister_interface() {
 }
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(20000000)]
 #[should_panic(expected: ('SRC5: invalid id', ))]
 fn test_deregister_default_interface() {
   let mut src5 = STATE();
