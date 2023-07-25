@@ -81,7 +81,7 @@ impl UnwrapAndCastSpanU256 of UnwrapAndCast<Span<u256>> {
     let unwrapped = self.unwrap_syscall();
 
     let mut ret = ArrayTrait::<u256>::new();
-    let mut i: usize = 0;
+    let mut i: usize = 1; // skip res length
 
     loop {
       if (i >= unwrapped.len()) {
