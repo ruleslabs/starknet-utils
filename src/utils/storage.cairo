@@ -2,7 +2,7 @@ use array::{ ArrayTrait, SpanTrait };
 use traits::{ Into, TryInto };
 use option::OptionTrait;
 use starknet::{
-  StorageAccess,
+  Store,
   storage_address_from_base_and_offset,
   storage_read_syscall,
   storage_write_syscall,
@@ -10,16 +10,16 @@ use starknet::{
   StorageBaseAddress,
 };
 
-impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
+impl StoreSpanFelt252 of Store<Span<felt252>> {
   fn read(address_domain: u32, base: StorageBaseAddress) -> SyscallResult<Span<felt252>> {
-    Felt252SpanStorageAccess::read_at_offset_internal(address_domain, base, 0)
+    StoreSpanFelt252::read_at_offset(address_domain, base, 0)
   }
 
   fn write(address_domain: u32, base: StorageBaseAddress, mut value: Span<felt252>) -> SyscallResult<()> {
-    Felt252SpanStorageAccess::write_at_offset_internal(address_domain, base, 0, value)
+    StoreSpanFelt252::write_at_offset(address_domain, base, 0, value)
   }
 
-  fn read_at_offset_internal(
+  fn read_at_offset(
     address_domain: u32,
     base: StorageBaseAddress,
     offset: u8
@@ -51,7 +51,7 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
     Result::Ok(arr.span())
   }
 
-  fn write_at_offset_internal(
+  fn write_at_offset(
     address_domain: u32,
     base: StorageBaseAddress,
     offset: u8,
@@ -80,10 +80,10 @@ impl Felt252SpanStorageAccess of StorageAccess<Span<felt252>> {
     };
 
     // Store span len
-    StorageAccess::<felt252>::write(:address_domain, :base, value: len.into())
+    Store::<felt252>::write(:address_domain, :base, value: len.into())
   }
 
-  fn size_internal(value: Span<felt252>) -> u8 {
-    Into::<u32, felt252>::into(value.len() + 1).try_into().expect('Storage - Span too large')
+  fn size() -> u8 {
+    255
   }
 }

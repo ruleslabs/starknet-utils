@@ -3,7 +3,7 @@ mod Contract {
   use array::{ ArrayTrait, SpanTrait };
 
   // locals
-  use rules_utils::utils::storage::Felt252SpanStorageAccess;
+  use rules_utils::utils::storage::StoreSpanFelt252;
 
   //
   // Storage
