@@ -17,26 +17,26 @@ use rules_utils::tests::utils;
 //
 
 fn setup_snake() -> DualCaseSRC5 {
-  let address = utils::deploy(class_hash: SnakeSRC5Mock::TEST_CLASS_HASH, calldata: ArrayTrait::new());
+  let address = utils::deploy(class_hash: SnakeSRC5Mock::TEST_CLASS_HASH, calldata: array![]);
 
   DualCaseSRC5 { contract_address: address }
 }
 
 fn setup_camel() -> DualCaseSRC5 {
-  let address = utils::deploy(class_hash: CamelSRC5Mock::TEST_CLASS_HASH, calldata: ArrayTrait::new());
+  let address = utils::deploy(class_hash: CamelSRC5Mock::TEST_CLASS_HASH, calldata: array![]);
 
   DualCaseSRC5 { contract_address: address }
 }
 
 fn setup_non_src5() -> DualCaseSRC5 {
-  let address = utils::deploy(class_hash: NonImplementingMock::TEST_CLASS_HASH, calldata: ArrayTrait::new());
+  let address = utils::deploy(class_hash: NonImplementingMock::TEST_CLASS_HASH, calldata: array![]);
 
   DualCaseSRC5 { contract_address: address }
 }
 
 fn setup_src5_panic() -> (DualCaseSRC5, DualCaseSRC5) {
-  let snake_address = utils::deploy(class_hash: SnakeSRC5PanicMock::TEST_CLASS_HASH, calldata: ArrayTrait::new());
-  let camel_address = utils::deploy(class_hash: CamelSRC5PanicMock::TEST_CLASS_HASH, calldata: ArrayTrait::new());
+  let snake_address = utils::deploy(class_hash: SnakeSRC5PanicMock::TEST_CLASS_HASH, calldata: array![]);
+  let camel_address = utils::deploy(class_hash: CamelSRC5PanicMock::TEST_CLASS_HASH, calldata: array![]);
 
   (
     DualCaseSRC5 { contract_address: snake_address },

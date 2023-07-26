@@ -8,13 +8,7 @@ use super::mocks::contract::Contract::ContractTrait;
 use super::utils;
 
 fn ARR() -> Array<felt252> {
-  let mut uri = ArrayTrait::new();
-
-  uri.append(111);
-  uri.append(222);
-  uri.append(333);
-
-  uri
+  array![111, 222, 333]
 }
 
 fn SPAN() -> Span<felt252> {
@@ -30,7 +24,7 @@ fn RANDO() -> starknet::ContractAddress {
 //
 
 fn deploy_contract() -> starknet::ContractAddress {
-  utils::deploy(Contract::TEST_CLASS_HASH, ArrayTrait::new())
+  utils::deploy(Contract::TEST_CLASS_HASH, array![])
 }
 
 //
@@ -61,8 +55,8 @@ fn test_span_partial_eq_not_equal() {
 #[test]
 #[available_gas(20000000)]
 fn test_span_partial_eq_empty() {
-  let arr1 = ArrayTrait::<felt252>::new().span();
-  let arr2 = ArrayTrait::<felt252>::new().span();
+  let arr1: Span<felt252> = array![].span();
+  let arr2: Span<felt252> = array![].span();
 
   assert(arr1 == arr2, 'arr should be equal');
 }

@@ -22,7 +22,7 @@ trait DualCaseSRC5Trait {
 
 impl DualCaseSRC5Impl of DualCaseSRC5Trait {
   fn supports_interface(self: @DualCaseSRC5, interface_id: felt252) -> bool {
-    let mut args = ArrayTrait::new();
+    let mut args = array![];
     args.append_serde(interface_id);
 
     try_selector_with_fallback(

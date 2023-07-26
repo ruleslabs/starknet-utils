@@ -55,7 +55,7 @@ impl UnwrapAndCastSpanFelt252 of UnwrapAndCast<Span<felt252>> {
   fn unwrap_and_cast(self: starknet::SyscallResult<Span<felt252>>) -> Span<felt252> {
     let mut unwrapped = self.unwrap_syscall();
 
-    let mut ret = ArrayTrait::<felt252>::new();
+    let mut ret = array![];
     let mut i: usize = 0;
 
     // pop length
@@ -80,7 +80,7 @@ impl UnwrapAndCastSpanU256 of UnwrapAndCast<Span<u256>> {
   fn unwrap_and_cast(self: starknet::SyscallResult<Span<felt252>>) -> Span<u256> {
     let unwrapped = self.unwrap_syscall();
 
-    let mut ret = ArrayTrait::<u256>::new();
+    let mut ret = array![];
     let mut i: usize = 1; // skip res length
 
     loop {

@@ -24,7 +24,7 @@ impl StoreSpanFelt252 of Store<Span<felt252>> {
     base: StorageBaseAddress,
     offset: u8
   ) -> SyscallResult<Span<felt252>> {
-    let mut arr = ArrayTrait::new();
+    let mut arr = array![];
 
     // Read span len
     let len: u8 = storage_read_syscall(:address_domain, address: storage_address_from_base_and_offset(base, offset))?
