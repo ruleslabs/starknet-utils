@@ -8,6 +8,8 @@ mod hash;
 mod contract_address;
 mod unwrap_and_cast;
 mod serde;
+mod base64;
+mod math;
 
 const ENTRYPOINT_NOT_FOUND: felt252 = 'ENTRYPOINT_NOT_FOUND';
 
