@@ -83,13 +83,10 @@ impl Base64Impl of Base64<felt252> {
         BitShift::shl(bword, 32 - bit_padding.into()) +
         BitShift::shr(compute_base64_word(:c1, :c2, :c3, ref :char_set).into(), bit_padding.into());
 
-      loop {
-        if (padding.is_zero()) {
-          break;
-        }
-
+      if (padding == 1) {
         bword = BitShift::shl(bword, 8) + '=';
-        padding -= 1;
+      } else if (padding == 2) {
+        bword = BitShift::shl(bword, 16) + '==';
       }
     }
 
