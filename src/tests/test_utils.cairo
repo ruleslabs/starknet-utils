@@ -2,6 +2,8 @@ use array::{ ArrayTrait, SpanTrait, SpanPartialEq };
 
 // locals
 use rules_utils::utils::contract_address::ContractAddressTraitExt;
+use rules_utils::utils::strings::Strings;
+
 use super::mocks::contract::Contract;
 use super::mocks::contract::Contract::ContractTrait;
 use super::utils;
@@ -55,4 +57,30 @@ fn test_contract_address_is_deployed() {
 
   assert(!random_address.is_deployed(), 'random is not deployed');
   assert(contract_address.is_deployed(), 'contract is deployed');
+}
+
+// Itoa
+
+#[test]
+#[available_gas(20000000)]
+fn test_itoa_basic() {
+  let n: felt252 = 1234567890987654321;
+
+  assert(n.itoa() == '1234567890987654321', 'Itoa failed');
+}
+
+#[test]
+#[available_gas(20000000)]
+fn test_itoa_long() {
+  let n: felt252 = 9999999999999999999999999999999;
+
+  assert(n.itoa() == '9999999999999999999999999999999', 'Itoa failed');
+}
+
+#[test]
+#[available_gas(20000000)]
+#[should_panic(expected: ('input too large',))]
+fn test_itoa_too_long() {
+  let n: felt252 = 100000000000000000000000000000000;
+  n.itoa();
 }

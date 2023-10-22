@@ -10,6 +10,7 @@ mod unwrap_and_cast;
 mod serde;
 mod base64;
 mod math;
+mod strings;
 
 const ENTRYPOINT_NOT_FOUND: felt252 = 'ENTRYPOINT_NOT_FOUND';
 
