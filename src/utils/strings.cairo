@@ -8,12 +8,12 @@ use rules_utils::utils::math::pow;
 const ITOA_MAX: u256 = 100000000000000000000000000000000;
 
 trait Strings {
-  fn itoa(self: @felt252) -> felt252;
+  fn itoa(self: felt252) -> felt252;
 }
 
 impl StringsImpl of Strings {
-  fn itoa(self: @felt252) -> felt252 {
-    let mut n: u256 = (*self).into();
+  fn itoa(self: felt252) -> felt252 {
+    let mut n: u256 = self.into();
 
     if (n >= ITOA_MAX) {
       panic_with_felt252('input too large');
