@@ -1,4 +1,4 @@
-# Starknet Messages
+# Starknet Utils
 
 Small library with some utils
 
